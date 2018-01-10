@@ -1,0 +1,9 @@
+
+<div class="sidebar-module">
+  <h4>专题</h4>
+  <ol class="list-unstyled">
+  {{#each catalogs}}
+    <li><a href="/blog/column/{{this.id}}">{{this.name}}({{this.num}})</a></li>
+  {{/each}}
+  </ol>
+</div>

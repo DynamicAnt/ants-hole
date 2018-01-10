@@ -1,0 +1,31 @@
+body {
+  font: 14px "microsoft yahei","Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.mt10{
+  margin-top: 10px;
+}
+
+.hide{
+  display: none;
+}
+.show{
+  display: block;
+}
+.modal-backdrop.in{
+  opacity: 0.5;
+}
+
+.form-horizontal{
+  width: 100%;
+}
+.form-group{
+  display: flex;
+}
+.bgc-lightgray{
+  background-color: lightgray;
+}

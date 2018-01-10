@@ -1,0 +1,23 @@
+{
+  "1":{
+    "id":"1",
+    "username":"sean",
+    "password":"000000",
+    "email":"1023@qq.com",
+    "identity":"1"
+  },
+  "2":{
+    "id":"2",
+    "username":"hedi",
+    "password":"000000",
+    "email":"10234@qq.com",
+    "identity":"0"
+  },
+  "3":{
+    "id":"3",
+    "username":"tom",
+    "password":"000000",
+    "email":"102345@qq.com",
+    "identity":"0"
+  }
+}

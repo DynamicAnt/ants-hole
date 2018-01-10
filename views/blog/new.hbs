@@ -1,0 +1,67 @@
+{{#extend "stylesheets"}}
+  <link rel="stylesheet" href="/stylesheets/blog/blog.css"/>
+{{/extend}}
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-sm-8 blog-main">
+
+      <div class="blog-post">
+        <form action="/blog/add" method="post">
+          <p class="blog-post-meta">
+            <span>标题：{{current}}</span><input name="title" />
+          </p>
+          <p class="blog-post-meta">
+            <span>关键词：</span><input name="keyword" />
+          </p>
+          <p class="blog-post-meta">
+            <span>目录：</span>
+            <select name="catalogid">
+              {{#each catalogs}}
+                <option value="{{this.id}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </p>
+          <textarea name="content"></textarea>
+          <p class="blog-post-meta">
+          <button class="btn btn-outline-primary" type="submit">提交</button>
+          </p>
+        </form>
+
+      </div><!-- /.blog-post -->
+
+      <nav class="blog-pagination">
+        <a class="btn btn-outline-primary" href="#">Older</a>
+        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+      </nav>
+
+    </div><!-- /.blog-main -->
+
+    <div class="col-sm-3 ml-sm-auto blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>About</h4>
+        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+      </div>
+      {{> catalog}}
+      <div class="sidebar-module">
+        <h4>Elsewhere</h4>
+        <ol class="list-unstyled">
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ol>
+      </div>
+    </div><!-- /.blog-sidebar -->
+
+  </div><!-- /.row -->
+
+</div>
+
+{{#extend "scripts"}}
+  <script>
+    document.write('foo bar!');
+  </script>
+{{/extend}}
+

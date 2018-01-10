@@ -1,0 +1,55 @@
+
+{{#extend "stylesheets"}}
+  <link rel="stylesheet" href="/stylesheets/blog/blog.css"/>
+{{/extend}}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-3 ml-sm-auto blog-sidebar">
+      {{> admin.side}}
+    </div><!-- /.blog-sidebar -->
+
+    <div class="col-sm-9 blog-main">
+      <a class="btn btn-sm btn-info" href="/admin/blog/add" target="_blank">新增</a>
+      <table class="table table-striped mt10">
+        <colgroup>
+          <col width="10%" />
+          <col width="30%" />
+          <col width="20%" />
+          <col width="15%" />
+          <col width="15%" />
+          <col width="10%" />
+        </colgroup>
+      <tr>
+        <th>序号</th>
+        <th>标题</th>
+        <th>所属类目</th>
+        <th>添加时间</th>
+        <th>修改时间</th>
+        <th>操作</th>
+        </tr>
+        {{#each blogList}}
+          <tr data-id="{{this.id}}">
+            <td>{{addOne @index}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.catalogName}}</td>
+            <td>{{formatDate this.add_time }}</td>
+            <td>{{formatDate this.update_time }}</td>
+            <td>
+              <a class="btn btn-sm btn-default" href="/admin/blog/update?id={{this.id}}" target="_blank">修改</a>
+              <button class="js-del btn btn-sm btn-default">删除</button>
+            </td>
+          </tr>
+        {{/each}}
+      </table>
+    </div><!-- /.blog-main -->
+  </div><!-- /.row -->
+</div>
+
+
+{{#extend "scripts"}}
+  <script src="/javascripts/catalog/catalog.js"></script>
+{{/extend}}
+
+

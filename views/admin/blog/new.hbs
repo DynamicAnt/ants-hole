@@ -1,0 +1,43 @@
+{{#extend "stylesheets"}}
+  <link rel="stylesheet" href="/stylesheets/blog/blog.css"/>
+{{/extend}}
+
+<div class="container">
+  {{error}}
+  <div class="row">
+        <form action={{#compare opt "add"}}"/admin/blog/add"{{else}}"/admin/blog/update"{{/compare}} method="post" class="form-horizontal">
+          <input name="id" id="id" value="{{blog.id}}" type="hidden"/>
+          <div class="form-group">
+            <label for="title" class="col-sm-2 text-right">标题：</label>
+            <div class="col-sm-10">
+            <input name="title" id="title" value="{{blog.title}}" class="form-control"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="catalog" class="col-sm-2 text-right">类目：</label>
+            <div  class="col-sm-10">
+              <select name="catalog_id" id="catalog" class="form-control">
+                {{#each catalogList}}
+                  <option value="{{this.id}}" {{#compare this.id blog.catalog_id}}selected{{/compare}}>{{this.name}}({{this.num}})</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="catalog" class="col-sm-2  text-right ">博客内容：</label>
+            <div  class="col-sm-10">
+            <textarea class="form-control" rows="3" name="content">{{blog.content}}</textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="offset-2 col-sm-10">
+              <button type="submit" class="btn btn-info">提交</button>
+            </div>
+          </div>
+        </form>
+  </div><!-- /.row -->
+
+</div>
+
+

@@ -1,0 +1,43 @@
+{{#extend "stylesheets"}}
+  <link rel="stylesheet" href="/stylesheets/blog/blog.css"/>
+{{/extend}}
+
+<div class="container">
+
+  {{#compare section "fresh"}}
+    <div class="">
+      <p>当cache-control中不包含no-cache指令，并且下面任何一个条件为true时，fresh的值为true。</p>
+      <dd>
+        <dl>当if-modified-since有值且last-modified的值小于等于res中 modified的值 </dl>
+        <dl>当if-none-match的值为'*'</dl>
+        <dl>当if-none-match被转换成指令后，与res的etag值不匹配</dl>
+      </dd>
+      <pre class="bgc-lightgray">
+        <code>var fr = require('fresh');</code>
+        <code>var test = fr(req,res);</code>
+      </pre>
+    </div>
+  {{/compare}}
+
+  <div class="row">
+    <table class="table table-striped mt10">
+      <tr>
+        <td>项目名称：</td><td>{{appName}}</td>
+      </tr>
+      <tr>
+        <td>项目版本：</td><td>{{appVersion}}</td>
+      </tr>
+      {{#each properties}}
+        <tr>
+          <td>{{this.name}}</td><td>{{this.value}}
+          {{#if this.flag}}<a href="{{this.url}}" target="_blank">[详情]</a>{{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </table>
+
+  </div><!-- /.row -->
+
+</div>
+
+

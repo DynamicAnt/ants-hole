@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-grid.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-reboot.css' />
+    <script src="/javascripts/lib/jquery-3.2.1.min.js"></script>
+    <script src="/javascripts/lib/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{{block "stylesheets"}}}
+  </head>
+  <body>
+    {{> nav}}
+    {{> header}}
+    {{{body}}}
+    {{> footer}}
+    {{{block "scripts"}}}
+  </body>
+</html>
