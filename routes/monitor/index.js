@@ -20,8 +20,8 @@ router.get('/request',function(req,res,next){
       console.log("req.cookies:",req.signedCookies)
       signedCookies = JSON.stringify(req.signedCookies);
    }
-   // req.path = '3';
-   //  req.url = '4';
+    req.path = '3';
+    // req.url = '4';
    let show = [
        {name:"req.baseUrl",value:req.baseUrl},
        {name:"req.path",value:req.path},
@@ -66,6 +66,12 @@ router.get('/response',function(req,res,next){
     res.render('monitor/index',{
         title:"response",
         properties:show
+    },function(err,html){
+        if(err){
+            console.log(err);
+        }else{
+            res.send(html);
+        }
     });
 });
 

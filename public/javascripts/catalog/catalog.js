@@ -33,6 +33,11 @@ $(function(){
     });
 
     $('.js-del').on('click',function(){
+        var num = $(this).closest('tr').find('td:eq(2)').text();
+        if(num!=0){
+            alert('该目录下有博客，不能删除');
+            return false;
+        }
         var id = $(this).closest('tr').data('id');
         $.post('/admin/catalog/delete',{
             id:id

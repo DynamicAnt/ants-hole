@@ -3,8 +3,9 @@ mongoose.Promise = Promise;
 let Schema = mongoose.Schema;
 
 let CatalogSchema = new Schema({
-    id : { type: Number },                    //id
-    name: {type: String},                        //目录名称
+    id : { type: Number },                      //目录id
+    userid:{type:Number},                       //会员id
+    name: {type: String},                       //目录名称
     num: {type: Number},                        //当前目录下博客数量
 });
 

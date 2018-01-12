@@ -2,8 +2,15 @@ let express = require('express');
 let router = express.Router();
 let catalogService = require('../../../service/CalalogService');
 
-router.get('/list',function(req,res,next){
-    catalogService.findAllCatalogs().then(function(list){
+function auth(req,res,next){
+    req.body.user = {
+        userid:1
+    }
+    next();
+}
+
+router.get('/list',auth,function(req,res,next){
+    catalogService.findAllCatalogs(req.body.user.userid).then(function(list){
         res.locals.item = "catalog";
         res.render('admin/catalog/list',{
             list:list,
@@ -11,9 +18,10 @@ router.get('/list',function(req,res,next){
         })
     });
 });
-router.post('/add',function(req,res,next){
+router.post('/add',auth,function(req,res,next){
     let name = req.body.name;
-    catalogService.insert({name:name}).then(function(data){
+    let userid = req.body.user.userid
+    catalogService.insert({name:name,userid:userid}).then(function(data){
         res.json({flag:1});
     }).catch(function(message){
         res.json({

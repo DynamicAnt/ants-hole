@@ -10,7 +10,7 @@
 
       <div class="blog-post">
           <h2 class="blog-post-title">{{blog.title}}</h2>
-          <p class="blog-post-meta">{{blog.addTime}}</p>
+          <p class="blog-post-meta">{{formatDate blog.add_time}}</p>
           {{{blog.content}}}
 
       </div><!-- /.blog-post -->
@@ -37,14 +37,5 @@
         </ol>
       </div>
     </div><!-- /.blog-sidebar -->
-
   </div><!-- /.row -->
-
 </div>
-
-{{#extend "scripts"}}
-  <script>
-    document.write('foo bar!');
-  </script>
-{{/extend}}
-

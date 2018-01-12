@@ -29,9 +29,13 @@ function insert(blog){
     return counterDao.getSequence(TASK).then(function(rst){
         let b = new blogModel({
             id: rst.value,
+            userid: blog.userid,
             title: blog.title,
             content: blog.content,
             catalog_id: blog.catalog_id,
+            attachmentid:blog.attachmentid,
+            update_time: blog.update_time,
+            tag:blog.tag,
             add_time:new Date(),
         });
         return b.save(function(){

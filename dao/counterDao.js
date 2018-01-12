@@ -1,4 +1,4 @@
-let Counter = require('../model/counterModel');
+let Counter = require('../model/CounterModel');
 
 let callback = function(err,rst){
     if(err){

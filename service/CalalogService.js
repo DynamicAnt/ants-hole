@@ -4,8 +4,8 @@ let catalogDao = require('../dao/catalogDao');
  * 查询所用目录
  * @returns {*}
  */
-function findAllCatalogs(){
-    return catalogDao.getAllCatalogs();
+function findAllCatalogs(userid){
+    return catalogDao.getAllCatalogs(userid);
 }
 function findOneByName(name){
     console.log('检查目录是否存在 ',name);

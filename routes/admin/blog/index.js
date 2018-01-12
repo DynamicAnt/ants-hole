@@ -7,39 +7,38 @@ router.all('*',function(req,res,next){
     res.locals.item = 'blog';
     next();
 });
-router.get('/list',function(req,res,next){
+
+function pagination(req,res,next){
     let pageSize = req.query.pageSize||10;
     let pageNum = req.query.pageNum||0;
     let page = {
-        pageSize:pageSize,
-        pageNum:pageNum
+        pageSize:parseInt(pageSize),
+        pageNum:parseInt(pageNum),
     };
-    if(req.query.catalog_id){
-        page.params = {
-            catalog_id:req.query.catalog_id
-        };
+    page.params = {
+        userid:1
     }
-    Promise.all([blogService.findAllBlogs(page),catalogService.findAllCatalogs()]).then(function(result){
-        let catalogMap = {};
-        for(let i=0;i<result[1].length;i++){
-            let catalog = result[1][i];
-            catalogMap[catalog.id] = catalog.name;
-        }
-        for(let i=0;i<result[0].length;i++){
-            let blog = result[0][i];
-            blog.catalogName = catalogMap[blog.catalog_id];
-        }
-
-        res.render('admin/blog/list',{
-            blogList:result[0],
-            catalogList:result[1],
-            catalogMap:catalogMap,
-            'title':'博客管理页'
-        });
+    if(req.params.catalogid){
+        page.params.catalog_id=req.params.catalogid;
+    }
+    req.body.page = page;
+    next();
+}
+router.get('/list',pagination,function(req,res,next){
+    blogService.getUserBlogs(req.body).then(function(result){
+        result.title = '博客管理页';
+        res.render('admin/blog/list',result);
     });
 });
-router.get('/add',function(req,res,next){
-    catalogService.findAllCatalogs().then(function(list){
+router.get('/:catalogid/list',pagination,function(req,res,next){
+    blogService.getUserBlogs(req.body).then(function(result){
+        result.title = '博客管理页';
+        res.render('admin/blog/list',result);
+    });
+});
+router.get('/add',pagination,function(req,res,next){
+    let userid = req.body.page.params.userid;
+    catalogService.findAllCatalogs(userid).then(function(list){
         res.locals.opt = "add";
         res.render('admin/blog/new',{
             catalogList:list,
@@ -47,8 +46,9 @@ router.get('/add',function(req,res,next){
         });
     });
 });
-router.post('/add',function(req,res,next){
+router.post('/add',pagination,function(req,res,next){
     let blog = {
+        userid:req.body.page.params.userid,
         title:req.body.title,
         content:req.body.content,
         catalog_id:req.body.catalog_id
@@ -64,10 +64,10 @@ router.post('/add',function(req,res,next){
         });
     });
 });
-router.get('/update',function(req,res,next){
+router.get('/update',pagination,function(req,res,next){
     let id = req.query.id;
     res.locals.opt = "update";
-    Promise.all([blogService.findBlogById(id),catalogService.findAllCatalogs()]).then(function(result){
+    Promise.all([blogService.findBlogById(id),catalogService.findAllCatalogs(req.body.page.params.userid)]).then(function(result){
         res.render('admin/blog/new',{
             blog:result[0],
             catalogList:result[1],
@@ -75,7 +75,7 @@ router.get('/update',function(req,res,next){
         });
     });
 });
-router.post('/update',function(req,res,next){
+router.post('/update',pagination,function(req,res,next){
     let blog = {
         id:req.body.id,
         title:req.body.title,

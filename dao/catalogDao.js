@@ -1,4 +1,4 @@
-let CatalogModel = require('../model/catalogModel');
+let CatalogModel = require('../model/CatalogModel');
 let CounterDao = require('./counterDao');
 const TASK = "catalog";
 
@@ -7,15 +7,15 @@ let callback = function(err,rst){
     if(err){
         console.log("Error:",err);
     } else{
-        console.log("rst:",rst);
+        // console.log("rst:",rst);
     }
 };
 
 /**
  * 查询所有的目录信息
  */
-function getAllCatalogs(){
-    return CatalogModel.find({}).exec();
+function getAllCatalogs(userid){
+    return CatalogModel.find({userid:userid}).exec();
 }
 
 function findOneByName(name){
@@ -27,6 +27,7 @@ function insert(catalog){
         console.log("rst:"+rst);
         let cata = new CatalogModel({
             id: rst.value,
+            userid:catalog.userid,
             name:catalog.name,
             num:0
         });
