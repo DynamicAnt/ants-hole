@@ -1,0 +1,24 @@
+{
+  "blog.list":{
+    "description":"blog list",
+    "in":{
+      "from":"^/blog-list-(\\d+).html$",
+      "to":"/blog?pageNumber=$1"
+    },
+    "out":{
+      "from":"^/blog\\?pageNumber=(\\d+)",
+      "to":"/blog-list-$1.html"
+    }
+  },
+  "blog.detail":{
+    "description":"blog detail",
+    "in":{
+      "from":"^/blog-detail-(\\d+).html$",
+      "to":"/blog/$1"
+    },
+    "out":{
+      "from":"^/blog/(\\d+)(\\?.*)?$",
+      "to":"/blog-detail-$1.html"
+    }
+  }
+}

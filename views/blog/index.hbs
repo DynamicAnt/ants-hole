@@ -11,7 +11,7 @@
       <div class="blog-post">
         {{#each list}}
           <h2 class="blog-post-title">
-            <a href="/blog/detail/{{this.id}}" target="_blank">{{this.title}}</a>
+            <a href="{{url 'blog.detail' blogId=this.id type=1}}" target="_blank">{{this.title}}</a>
           </h2>
           <p class="blog-post-meta">{{this.addTime}}</p>
           {{{this.content}}}

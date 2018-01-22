@@ -8,6 +8,7 @@ let bodyParser = require('body-parser');
 // 这里如果用let声明package程序会报错，原因不明
 var package = require('./package');
 let hbshelper = require('./extend/hbshelper');
+let rewriter = require('./extend/rewriter');
 
 let index = require('./routes/index');
 let blog = require('./routes/blog');
@@ -40,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.set('trust proxy', 'loopback') // specify a single subnet
-
+app.use(rewriter.inbound());
 app.use('/', index);
 app.use('/admin/catalog',catalog);
 app.use('/admin/blog',blogb);

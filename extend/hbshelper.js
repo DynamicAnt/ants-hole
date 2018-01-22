@@ -1,5 +1,7 @@
 var hbs = require('hbs');
 var moment = require('moment');
+const urlFactory = require('../config/frontUrlFactory');
+const rewriter = require('./rewriter');
 
 hbs.registerPartials('./views/partials');
 var blocks = {};
@@ -32,10 +34,17 @@ hbs.registerHelper('addOne', function(index) {
 });
 
 hbs.registerHelper('url', function(src) {
-    var args = arguments;
-    var key = argumnets[0];
-    var params = arguments[1].hash;
-    return "http://localhost:3000";
+    var params = {};
+    switch (arguments.length){
+    case 2:params = arguments[1].hash;break;
+    case 3:params = arguments[1];break;
+    }
+
+    let path = urlFactory[src];
+    let url = typeof path==='string'?path:path.call(urlFactory,params);
+    url = rewriter.outbound(url);
+
+    return url;
 });
 
 hbs.registerHelper('formatDate', function(date,formate){
