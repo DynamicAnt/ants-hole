@@ -1,5 +1,5 @@
 let CatalogModel = require('../model/CatalogModel');
-let CounterDao = require('./counterDao');
+let CounterDao = require('./CounterDao');
 const TASK = "catalog";
 
 let callback = function(err,rst){

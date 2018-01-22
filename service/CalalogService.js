@@ -1,4 +1,4 @@
-let catalogDao = require('../dao/catalogDao');
+let catalogDao = require('../dao/CatalogDao');
 
 /**
  * 查询所用目录
@@ -8,9 +8,8 @@ function findAllCatalogs(userid){
     return catalogDao.getAllCatalogs(userid);
 }
 function findOneByName(name){
-    console.log('检查目录是否存在 ',name);
+    //检查目录是否存在
     return catalogDao.findOneByName(name).then(function(rst){
-        console.log('findOneByName rst',rst);
         if(rst.length!==0){
             return Promise.reject("该目录名称已存在");
         }else{

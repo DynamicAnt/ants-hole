@@ -1,6 +1,6 @@
 let blogModel = require('../model/BlogModel');
-let catalogDao = require('./catalogDao');
-let counterDao = require('./counterDao');
+let catalogDao = require('./CatalogDao');
+let counterDao = require('./CounterDao');
 const TASK = "blog";
 
 let callback = function(err,rst){
@@ -25,7 +25,6 @@ function findBlogById(id){
 }
 
 function insert(blog){
-    console.log('blog insert',blog);
     return counterDao.getSequence(TASK).then(function(rst){
         let b = new blogModel({
             id: rst.value,
