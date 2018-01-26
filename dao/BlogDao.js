@@ -59,12 +59,20 @@ function update(params){
     var update = {$set:params};
     return blogModel.update(conditions,update).exec(callback);
 }
+
+function getTotalNumber(params){
+    if(!params){
+        params = {};
+    }
+    return blogModel.count(params,callback);
+}
 exports.getAllBlogs = getAllBlogs;
 exports.findBlogByParams = findBlogByParams;
 exports.findBlogById = findBlogById;
 exports.insert = insert;
 exports.update = update;
 exports.del = del;
+exports.getTotalNumber = getTotalNumber;
 
 
 

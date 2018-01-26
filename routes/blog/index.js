@@ -29,9 +29,12 @@ function pagination(req,res,next){
 router.get('/',pagination, (req, res, next) =>{
     blogService.findAllBlogs(req.body.page).then(function(result){
         res.render('blog/index',{
-            list:result,
+            list:result.list,
+            totalNum:result.totalNum,
             'title':'博客列表'
         });
+    }).catch(function(err){
+        res.send(JSON.stringify(err));
     });
 });
 

@@ -2,7 +2,7 @@ const querystring = require('querystring');
 function serilize(params,keys) {
     if(keys){
         if(typeof keys==='string'){
-            key = keys;
+            let key = keys;
             keys = [];
             keys.push(key);
         }

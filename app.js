@@ -16,6 +16,7 @@ let monitor = require('./routes/monitor');
 let catalog  = require('./routes/admin/catalog');
 let blogb  = require('./routes/admin/blog');
 let file  = require('./routes/admin/file');
+let test = require('./routes/test');
 
 let app = express();
 
@@ -48,7 +49,7 @@ app.use('/admin/blog',blogb);
 app.use('/admin/file',file);
 app.use('/blog',blog);
 app.use('/monitor',monitor);
-// app.use(['/monit*r', '/manager'],monitor);
+app.use('/test',test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

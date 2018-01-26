@@ -54,5 +54,25 @@ hbs.registerHelper('formatDate', function(date,formate){
     return new hbs.SafeString(moment(date).format(formate));
 })
 
+hbs.registerHelper('list', function(datas,options){
+    let html= "<ul>";
+    if(datas){
+        for(let i=0;i<datas.length;i++){
+            html = html+"<li>"+datas[i].name+"</li>";
+        }
+    }
+    html += "</ul>";
+    return html;
+});
+hbs.registerHelper('list1', function(datas,options){
+    let html= "<ul>";
+    if(datas){
+        for(let i=0;i<datas.length;i++){
+            html = html+"<li>"+options.fn(datas[i])+"</li>";
+        }
+    }
+    html += "</ul>";
+    return html;
+});
 
 

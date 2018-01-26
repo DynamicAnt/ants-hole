@@ -1,0 +1,16 @@
+{{#list peoples}}{{/list}}
+<hr>
+{{#list1 peoples}}{{name}}{{/list1}}
+<hr>
+<h3>list:{{list}}</h3>
+<h3>\{{./list}}:{{./list}}</h3>
+<hr>
+{{#each colors}}
+  {{#compare this "red"}}
+    <span class="red">red</span>
+  {{else compare this "green"}}
+      <span class="green">green</span>
+  {{else compare this "gray"}}
+      <span class="gray">gray</span>
+  {{/compare}}
+{{/each}}

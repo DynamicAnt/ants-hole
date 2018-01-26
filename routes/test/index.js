@@ -1,51 +1,45 @@
 var express = require('express');
 var router = express.Router();
 
-// router.param('id',function(req,res,next,id){
-//   console.log("id:",id);
-//   next();
-// });
-// router.param('name',function(req,res,next,name){
-//   console.log("name:",name);
-//   next();
-// });
-router.param(['name'],function(req,res,next,value){
-    console.log("1-id:",value);
-    console.log("1-name:",value);
-    next();
-});
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
-    res.links({
-        next: 'http://api.example.com/users?page=2',
-        last: 'http://api.example.com/users?page=5'
+router.get('/hbs/expression', function(req, res, next) {
+    let article = {
+        title:"This is an article",
+        "#comments":[{title:"1",body:"111"},{title:"2",body:"222"},{title:"3",body:"333"}]
+    };
+    let articles = [];
+    articles.push(article);
+    articles.push({
+       title:"invalid identifier",
+        "#comments":[{title:"1",body:"111"},{title:"2",body:"222"},{title:"3",body:"333"}]
     });
-    res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
-    res.append('Warning', '199 Miscellaneous warning');
+    res.render('test/hbs/expression',{
+        article:article,
+        articles:articles,
+        nav: [
+            {url: 'foo', test: true, title: 'bar'},
+            {url: 'bar'}
+        ],
+        escaped:'&lt;1&gt;2',
+        title: "All about <p> Tags",
+        body: "<p>This is a post about &lt;p&gt; tags</p>"
+    })
 
+});
+router.get('/hbs/block/expression', function(req, res, next) {
+    let peoples = [{
+        name:"sean",
+    },{
+        name:"<div>red</div>"
+    }];
+    let colors = ["red","green","gray"];
+    res.render('test/hbs/block_expression',{
+        peoples:peoples,
+        list:"this is a list string",
+        colors:colors
 
-    res.vary('User-Agent').send('Hello');
-    console.log(res.headersSent); // false
-});
-
-router.get('/files/0', function(req, res, next) {
-    res.attachment('files/tup.png');
-    res.send();
-});
-router.get('/files/1', function(req, res, next) {
-    res.download('files/tup.png');
-});
-router.get('/files/2', function(req, res, next) {
-    res.download('files/tup.png','tupian.png');
-});
-router.get('/files/3', function(req, res, next) {
-    res.download('files/tup.png','tupianing.png',function(err){
-        if(err){
-            console.log('err:',err);
-        }else{
-            console.log('download finish');
-        }
     });
-});
+})
+
 module.exports = router;

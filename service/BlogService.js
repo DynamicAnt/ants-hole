@@ -6,11 +6,20 @@ let catalogService = require('./CalalogService');
  * @returns {*}
  */
 function findAllBlogs(page){
+    let promise = null;
     if(page.params){
-        return blogDao.findBlogByParams(page);
+        promise = blogDao.findBlogByParams;
     }else{
-        return blogDao.getAllBlogs(page);
+        promise = blogDao.getAllBlogs;
     }
+    return Promise.all([promise(page),blogDao.getTotalNumber(page.params)]).then(function(result){
+        return Promise.resolve({
+            list:result[0],
+            totalNum:result[1]
+        });
+    }).catch(function(err){
+        return Promise.reject(err);
+    });
 }
 
 function findBlogById(id){
