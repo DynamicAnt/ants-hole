@@ -15,7 +15,7 @@ router.use(function(req,res,next){
 });
 function pagination(req,res,next){
     let pageSize = req.query.pageSize||10;
-    let pageNum = req.query.pageNum||0;
+    let pageNum = req.query.pageNum||1;
     let page = {
         pageSize:parseInt(pageSize),
         pageNum:parseInt(pageNum),

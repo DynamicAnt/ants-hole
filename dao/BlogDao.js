@@ -13,7 +13,7 @@ let callback = function(err,rst){
  * 查询所有的目录信息
  */
 function getAllBlogs(page){
-    return blogModel.find({}).limit(page.pageSize).skip(page.pageNum).exec(callback);
+    return blogModel.find({}).limit(page.pageSize).skip((page.pageNum-1)*page.pageSize).exec(callback);
 }
 
 function findBlogByParams(page){
