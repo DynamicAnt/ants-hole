@@ -75,4 +75,17 @@ hbs.registerHelper('list1', function(datas,options){
     return html;
 });
 
+hbs.registerHelper('paginate', function(totalNum, pageSize) {
+    if(totalNum == 0 || totalNum == '') {
+        return;
+    }
+    let pageNum =  Math.ceil(totalNum/pageSize);
+    let html = '<a href="" class="page prev js-prev"> << </a>';
+    for(let i=1; i<=pageNum; i++){
+        html += '<a class="page js-pageNum" href="?pageSize='+pageSize+'&pageNum='+i+'">'+i+'</a>'
+    }
+    html += '<a href="" class="page next js-next"> >> </a>'
+    return html;
+})
+
 
