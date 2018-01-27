@@ -15,13 +15,11 @@
           </h2>
           <p class="blog-post-meta">{{this.addTime}}</p>
           {{{this.content}}}
-
         {{/each}}
       </div><!-- /.blog-post -->
 
-      <nav class="blog-pagination">
-        <a class="btn btn-outline-primary" href="#">Older</a>
-        <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+      <nav class="blog-pagination js-paginate">
+        {{#paginate totalNum 10}}{{/paginate}}
       </nav>
 
     </div><!-- /.blog-main -->
@@ -45,6 +43,10 @@
   </div><!-- /.row -->
 
 </div>
+
+{{#extend "stylesheets"}}
+    <script src="/javascripts/blog/blog.js"></script>
+{{/extend}}
 
 
 
