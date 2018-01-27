@@ -131,7 +131,27 @@ h6, .h6 {
 .blog-pagination > .btn {
   border-radius: 2rem;
 }
-
+.page {
+  display: inline-block;
+  width:25px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border: 1px solid #ebebeb;
+  margin-right: 2px;
+}
+.page.active {
+  background: #f1425a;
+  color: #fff;
+}
+.page.disabled {
+  cursor: not-allowed;
+  background: #eee;
+  color: #fff;
+}
+.page.next,.page.prev {
+  text-decoration: none;
+}
 
 /*
  * Blog posts
