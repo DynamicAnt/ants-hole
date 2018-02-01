@@ -1,0 +1,43 @@
+<br />
+<br />
+
+<h2>partial test</h2>
+{{> partialTest}}
+<hr>
+<h2>basic test</h2>
+{{> basicPartial}}
+<hr>
+<h2>dynamic partial</h2>
+{{> (dynamicPartial 2)}}
+<hr>
+<h2>dynamic partial variable test</h2>
+{{variablePartial}}
+{{> (lookup. 'variablePartial')}}
+<hr>
+<h2>parameter test</h2>
+{{> parameterPartial title="node test" name="sean"}}
+<hr>
+<h2>Partial Block</h2>
+{{#> noPartial}}
+  there is no partial named "noPartial".
+{{/noPartial}}
+<br /><br />
+{{#> partialBlock}}
+  <span class="gray">you will see this segment in partial block.</span>
+{{/partialBlock}}
+
+<hr>
+<h2>Inline Partials</h2>
+{{#*inline "basicPartial"}}
+  My Content
+{{/inline}}
+{{#each children}}
+  {{> basicPartial}}
+{{/each}}
+<hr>
+<h2>log test</h2>
+{{log "Log!" level="error"}}
+the log contents are print in webstorm console
+
+<br />
+<br />

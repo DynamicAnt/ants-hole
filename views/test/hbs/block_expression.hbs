@@ -1,6 +1,19 @@
 {{#list peoples}}{{/list}}
 <hr>
+<h4>list1</h4>
 {{#list1 peoples}}{{name}}{{/list1}}
+<hr>
+<h4>list2</h4>
+{{#list2 peoples}}{{@index}}{{name}}{{/list2}}
+<h4>Block Parameters</h4>
+{{!-- this is a comment --}}
+<ul>
+{{#each peoples as |user username |}}
+  {{#each user.books as |book|}}
+    <li>{{username}}:{{book.name}}</li>
+  {{/each}}
+{{/each}}
+</ul>
 <hr>
 <h3>list:{{list}}</h3>
 <h3>\{{./list}}:{{./list}}</h3>
@@ -14,3 +27,9 @@
       <span class="gray">gray</span>
   {{/compare}}
 {{/each}}
+<hr>
+{{{{raw-helper}}}}
+  {{each people}}
+    {{bar}}
+  {{/each}}
+{{{{/raw-helper}}}}
