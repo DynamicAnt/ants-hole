@@ -52,7 +52,7 @@ hbs.registerHelper('formatDate', function(date,formate){
         formate = 'YYYY-MM-DD HH:mm:ss';
     }
     return new hbs.SafeString(moment(date).format(formate));
-})
+});
 
 hbs.registerHelper('list', function(datas,options){
     let html= "<ul>";
@@ -74,6 +74,33 @@ hbs.registerHelper('list1', function(datas,options){
     html += "</ul>";
     return html;
 });
+hbs.registerHelper('list2', function(context,options){
+    let html= "<ul>",data;
+    if(options.data){
+        data = options.data;
+    }
+    if(context){
+        for(let i=0;i<context.length;i++){
+            data.index = i+1;
+            html = html+"<li>"+options.fn(context[i],{data:data})+"</li>";
+        }
+    }
+    html += "</ul>";
+    return html;
+});
+hbs.registerHelper('raw-helper', function(options) {
+    return options.fn();
+});
+hbs.registerPartial('basicPartial', '{{name}}');
+hbs.registerHelper('dynamicPartial', function(number) {
+    if(number&&number===1){
+        return 'partialTest'
+    }else{
+        return 'dynamicPartialTest';
+    }
+
+});
+
 
 hbs.registerHelper('paginate', function(totalNum, pageSize) {
     if(totalNum == 0 || totalNum == '') {
