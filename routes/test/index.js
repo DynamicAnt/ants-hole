@@ -11,7 +11,7 @@ router.get('/hbs/expression', function(req, res, next) {
     let articles = [];
     articles.push(article);
     articles.push({
-       title:"invalid identifier",
+        title:"invalid identifier",
         "#comments":[{title:"1",body:"111"},{title:"2",body:"222"},{title:"3",body:"333"}]
     });
     res.render('test/hbs/expression',{
@@ -30,8 +30,18 @@ router.get('/hbs/expression', function(req, res, next) {
 router.get('/hbs/block/expression', function(req, res, next) {
     let peoples = [{
         name:"sean",
+        books:[{
+            name:"book name A"
+        },{
+            name:"book name B"
+        }]
     },{
-        name:"<div>red</div>"
+        name:"<div>red</div>",
+        books:[{
+            name:"book name 1"
+        },{
+            name:"book name 2"
+        }]
     }];
     let colors = ["red","green","gray"];
     res.render('test/hbs/block_expression',{
@@ -40,6 +50,17 @@ router.get('/hbs/block/expression', function(req, res, next) {
         colors:colors
 
     });
-})
+});
+
+router.get('/hbs/partial', function(req, res, next) {
+    let variablePartial = 'partialTest';
+    let name = 'this is a basic partial';
+
+    res.render('test/hbs/partial',{
+        variablePartial:variablePartial,
+        name:name,
+        children:[{name:"index"},{name:"blog"},{name:"catalog"}]
+    });
+});
 
 module.exports = router;
