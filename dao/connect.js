@@ -2,7 +2,7 @@
  *  数据库连接
  */
 
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const DB_URL = "mongodb://39.108.153.3:27017/ants_hole";
 // let options = {
 //     server: {
@@ -32,5 +32,7 @@ mongoose.connection.on('error',function (err) {
 mongoose.connection.on('disconnected', function () {
     console.log('Mongoose connection disconnected');
 });
+
+mongoose.Promise = Promise;
 
 module.exports = mongoose;

@@ -1,5 +1,6 @@
 let counterDao = require('./CounterDao');
 let userModel = require('../model/UserModel');
+let LogonInfoDao = require('./LogonInfoDao');
 const TASK = "user";
 let callback = function(err,rst){
     if(err){
@@ -8,17 +9,19 @@ let callback = function(err,rst){
 };
 
 function insert(user){
-    return counterDao.getSequence(TASK).then(function(rst){
+    return counterDao.getSequence(TASK).then((rst)=>{
         let u = new userModel({
             id: rst.value,
-            user_name: user.user_name,
-            log_user_name: user.log_user_name,
-            password: user.password,
+            nick_name: user.nick_name,
+            status: 1,
             email: user.email,
-            mobile:user.mobile,
-            identity: user.identity,
+            power: user.power,
+            add_time: new Date(),
+            update_time: new Date()
         });
-        return u.save(callback);
+        return u.save().then((userInfo)=>{
+            return LogonInfoDao.register(user.log_user_name,user.password,userInfo.user_id);
+        });
     });
 }
 

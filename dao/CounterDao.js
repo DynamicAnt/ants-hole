@@ -24,18 +24,18 @@ function getCounter(name){
 function update(params){
     var conditions = {name:params.name};
     var update = {$set:{value:params.value}};
-    Counter.update(conditions,update,callback);
+    return Counter.update(conditions,update,callback);
 }
 function insert(params){
     var counter = new Counter({
-        "name":"user",
-        "value":1
+        "name":params.name,
+        "value":params.value
     });
-    counter.save(callback);
+    return counter.save();
 }
 function del(params){
     var conditions = {name: params.name};
-    Counter.remove(conditions, callback);
+    return Counter.remove(conditions);
 }
 function getSequence(name){
     return Counter.findOneAndUpdate(
