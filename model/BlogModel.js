@@ -1,4 +1,4 @@
-let mongoose = require('mongoose');
+let mongoose = require('../dao/connect');
 mongoose.Promise = Promise;
 
 let BlogSchema = mongoose.Schema({

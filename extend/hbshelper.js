@@ -3,6 +3,7 @@ var moment = require('moment');
 const urlFactory = require('../config/frontUrlFactory');
 const rewriter = require('./rewriter');
 
+// hbs.registerPartials('./views/partials/test');
 hbs.registerPartials('./views/partials');
 var blocks = {};
 hbs.registerHelper('extend', function(name, context) {

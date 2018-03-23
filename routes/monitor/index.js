@@ -100,6 +100,7 @@ router.get('/send',function(req,res,next){
           res.send(html);
        });
    }else{
+       Buffer()
        res.end();
    }
 });
