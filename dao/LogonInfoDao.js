@@ -11,15 +11,6 @@ function isUserExisted(params){
 }
 
 /**
- * 登陆
- * @param logUsername
- * @param password
- */
-function logon(logUsername, password) {
-    return isUserExisted({log_user_name:logUsername,password:password});
-}
-
-/**
  * 注册
  * @param logUsername
  * @param password
@@ -31,11 +22,18 @@ function register(logUsername, password ,userId) {
             id: rst.value,
             user_id: userId,
             log_user_name: logUsername,
-            password: password,
-            add_time: new Date(),
-            update_time: new Date()
+            password: password
         }).save();
     });
+}
+
+/**
+ * 登陆
+ * @param logUsername
+ * @param password
+ */
+function logon(logUsername, password) {
+    return isUserExisted({log_user_name:logUsername,password:password});
 }
 
 /**
@@ -46,12 +44,12 @@ function register(logUsername, password ,userId) {
 function modifyPassword(logUsername, password) {
     let conditions = {log_user_name:logUsername};
     let update = {$set:{password:password}};
-    return LogonInfoModel.update(conditions,update).exec();
+    return LogonInfoModel.findOneAndUpdate(conditions,update,{new:true});
 
 }
 
 function del(logUsername){
-    return LogonInfoModel.remove({log_user_name:logUsername}).exec();
+    return LogonInfoModel.remove({log_user_name:logUsername});
 }
 
 exports.isUserExisted = isUserExisted;

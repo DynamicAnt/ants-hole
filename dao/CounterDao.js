@@ -1,31 +1,18 @@
 let Counter = require('../model/CounterModel');
 
-let callback = function(err,rst){
-    if(err){
-        console.log("Error:",err);
-    } else{
-        console.log("rst:",rst);
-    }
-};
-
 function getCounter(name){
-    var query = Counter.findOne({name:name});
-    query.select('value');
-    query.exec(function(err,rst) {
-        if(err){
-            console.log("Error:",err);
-        } else{
-            console.log("getCounter rst:",rst);
-            return rst.value;
-        }
-    });
+    return Counter.findOne({name:name}).select('value').exec();
 }
 
 function update(params){
     var conditions = {name:params.name};
     var update = {$set:{value:params.value}};
-    return Counter.update(conditions,update,callback);
+    return Counter.update(conditions,update);
 }
+function findOneAndUpdate(params){
+    return Counter.findOneAndUpdate({name:params.name},{$set:{value:params.value}},{new: true});
+}
+
 function insert(params){
     var counter = new Counter({
         "name":params.name,
@@ -50,15 +37,4 @@ exports.getSequence = getSequence;
 exports.insert = insert;
 exports.update = update;
 exports.del = del;
-
-// update({
-//    name:"catalog",
-//    value:1
-// });
-// insert({
-//     "name":"user",
-//     "value":2
-// });
-
-// getCounter("catalog");
-// getSequence("catalog");
+exports.findOneAndUpdate = findOneAndUpdate;

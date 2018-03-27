@@ -1,39 +1,66 @@
-let counterDao = require('./CounterDao');
-let userModel = require('../model/UserModel');
-let LogonInfoDao = require('./LogonInfoDao');
+let UserModel = require('../model/UserModel');
+let SequenceDao = require('./CounterDao');
+const extend = require('extend');
 const TASK = "user";
-let callback = function(err,rst){
-    if(err){
-        console.log("Error:",err);
-    }
+
+function UserDao(){
+
+}
+
+/**
+ * 查询email是否已经被使用
+ * @param email
+ * @returns {Promise|RegExpExecArray}
+ */
+UserDao.isEmailExisted = function(email){
+    return UserModel.findOne({email:email}).exec();
 };
 
-function insert(user){
-    return counterDao.getSequence(TASK).then((rst)=>{
-        let u = new userModel({
-            id: rst.value,
-            nick_name: user.nick_name,
-            status: 1,
-            email: user.email,
-            power: user.power,
-            add_time: new Date(),
-            update_time: new Date()
-        });
-        return u.save().then((userInfo)=>{
-            return LogonInfoDao.register(user.log_user_name,user.password,userInfo.user_id);
-        });
+/**
+ * 新增用户
+ * @param user
+ * @returns {Promise|*|PromiseLike<T>|Promise<T>}
+ */
+UserDao.insert = function(user){
+    return SequenceDao.getSequence(TASK).then(data=>{
+        return new UserModel(extend(user,{id:data.value})).save();
     });
-}
+};
 
-function findUserByParams(params) {
-    return userModel.findOne(params).exec(callback);
-}
+/**
+ * 查找匹配条件的所有用户
+ * @param user
+ * @returns {Promise|RegExpExecArray}
+ */
+UserDao.find = function(user){
+    return UserModel.find(user).exec();
+};
 
-function update(params){
-    var conditions = {id:params.id};
-    var update = {$set:params};
-    return userModel.update(conditions,update).exec(callback);
-}
-exports.insert = insert;
-exports.findUserByParams = findUserByParams;
-exports.update = update;
+/**
+ * 查找符合条件的用户，只返回一条
+ * @param user
+ * @returns {Promise|RegExpExecArray}
+ */
+UserDao.findOneByParams = function(user){
+    return UserModel.findOne(user).exec();
+};
+
+/**
+ * 修改用户信息
+ * @param user
+ * @returns {*}
+ */
+UserDao.update = function(user){
+    return UserModel.findOneAndUpate({id:user.id},{$set:user},{new:true});
+};
+
+/**
+ * 物理删除用户信息
+ * @param id
+ * @returns {*}
+ */
+UserDao.del = function(id) {
+    return UserModel.remove({id:id});
+};
+
+module.exports = UserDao;
