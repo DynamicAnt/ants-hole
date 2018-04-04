@@ -13,4 +13,4 @@
 //    attachmentid:Number
 // });
 //
-// module.exports = mongoose.model('core_blog_maint',BlogSchema,'core_blog_maint');
+// module.exports = mongoose.mod el('core_blog_maint',BlogSchema,'core_blog_maint');

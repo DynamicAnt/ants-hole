@@ -1,78 +1,99 @@
-let userDao = require('../dao/UserDao');
+const UserDao = require('../dao/UserDao');
+const LogonInfoDao = require('../dao/LogonInfoDao');
+const crypto = require('crypto');
+
+
+function UserService(){
+
+}
 
 /**
  * 判断邮箱是否已经存在
  * @param email
- * @returns {Promise<T>}
+ * @returns {Promise|RegExpExecArray}
  */
-function isEmailExist(email){
-    return userDao.findUserByParams({email:email}).then((rst)=>{
-        if(rst.length!==0){
-            return Promise.reject("邮箱已存在");
-        }else{
-            return Promise.resolve("success");
-        }
-    }).catch((err)=>{
-        return Promise.reject(err);
-    })
-}
+UserService.isEmailExisted = function(email){
+    return UserDao.isEmailExisted(email);
+};
 
 /**
- * 判断登录名是否已经存在
- * @param logUsername
- * @returns {Promise<T>}
+ * 新增用户信息
+ * @param user
+ * @returns {*|PromiseLike<T>|Promise<T>}
  */
-function isLogusernameExist(logUsername){
-    return userDao.findUserByParams({log_user_name:logUsername}).then((rst)=>{
-        if(rst.length!==0){
-            return Promise.reject("登录名已存在");
-        }else{
-            return Promise.resolve("success");
-        }
-    }).catch((err)=>{
-        return Promise.reject(err);
-    })
-}
+UserService.add = function(user){
+    return this.isEmailExisted(user.email)
+        .then(data=>{
+            if(data){
+                return LogonInfoDao.isUserExisted(user.log_user_name)
+            .then(UserDao.insert(user))
+                    .then(data=>{
+                        let password = crypto.createHash('md5').update(user.password).digest('hex');
+                        return LogonInfoDao.register(user.log_user_name,password,data.id);
+                    });
+            }else{
+
+            }
+        });
+
+};
 
 /**
- * 注册入口
+ * 更新用户信息
  * @param user
  * @returns {*}
  */
-function register(user){
-    return userDao.insert(user);
-}
+UserService.updateUserInfo = function(user){
+    user.update_time = new Date();
+    return UserDao.update(user);
+};
 
 /**
- * 登陆入口
- * @param logUsername
- * @param password
- * @returns {Promise<T>}
+ * 修改用户权限
+ * @param id
+ * @param power
+ * @returns {*}
  */
-function logon(logUsername,password){
-    return userDao.findUserByParams({
-        log_user_name:logUsername,
-        password:password
-    }).then((rst)=>{
-        if(rst.length!==0){
-            return Promise.reject("用户名或密码有误，请重新输入");
-        }else{
-            //TODO:计入session
-            return Promise.resolve("success");
-        }
-    }).catch((err)=>{
-        return Promise.reject(err);
-    })
-}
+UserService.updatePower = function(id, power){
+    return this.updateUserInfo({id:id,power:power});
+};
 
 /**
- * 注销
+ * 修改用户状态
+ * @param id
+ * @param status
+ * @returns {*}
  */
-function logout(){
+UserService.updateStatus = function(id, status){
+    return this.updateUserInfo({id:id,power:status});
+};
 
-}
+/**
+ * 查找用户
+ * @param user
+ * @returns {Promise|RegExpExecArray}
+ */
+UserService.find = function(user){
+    return UserDao.find(user);
+};
 
-exports.isEmailExist = isEmailExist;
-exports.register = register;
-exports.logon = logon;
-exports.logout = logout;
+/**
+ * 根据用户id查找用户信息
+ * @param id
+ * @returns {Promise|RegExpExecArray}
+ */
+UserService.findUserById = function(id){
+    return UserDao.findOneByParams({id:id});
+};
+
+/**
+ * 根据登陆名查找用户信息
+ * @param logUserName
+ * @returns {Promise|RegExpExecArray}
+ */
+UserService.findUserByLogUserName = function(logUserName){
+    return UserDao.findOneByParams({log_user_name:logUserName});
+};
+
+module.exports = UserService;
+

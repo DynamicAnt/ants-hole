@@ -3,11 +3,20 @@ let LogonInfoModel = require('../model/LogonInfoModel');
 const TASK = "logon";
 
 /**
+ * 查找登陆信息
+ * @param params
+ * @returns {Promise|RegExpExecArray}
+ */
+function findOneLogonInfo(params){
+    return LogonInfoModel.findOne(params).exec();
+}
+
+/**
  * 判断登录名是否存在
  * @param logUsername
  */
-function isUserExisted(params){
-    return LogonInfoModel.findOne(params).exec();
+function isUserExisted(logUserName){
+    return this.findOneLogonInfo({log_user_name:logUserName});
 }
 
 /**
@@ -33,7 +42,7 @@ function register(logUsername, password ,userId) {
  * @param password
  */
 function logon(logUsername, password) {
-    return isUserExisted({log_user_name:logUsername,password:password});
+    return findOneLogonInfo({log_user_name:logUsername,password:password});
 }
 
 /**

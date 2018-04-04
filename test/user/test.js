@@ -1,5 +1,5 @@
 let chai = require('chai');
-var chaiAsPromised = require("chai-as-promised");
+let chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 chai.should();
 
@@ -79,6 +79,19 @@ describe('UserDao', function() {
                 .should.eventually.be.a('null');
         });
     });
+
+    describe('#modify()', function() {
+        it('should return true', function() {
+            var params = {
+                id: user.id,
+                power:10,
+                update_time:new Date()
+            };
+            return UserDao.update(params)
+                .should.eventually.have.property('power').equal(params.power);
+        });
+    });
+
     describe('#del()', function() {
         it('should return 1 when finish delete', function() {
             return UserDao.del(user.id)

@@ -51,7 +51,7 @@ UserDao.findOneByParams = function(user){
  * @returns {*}
  */
 UserDao.update = function(user){
-    return UserModel.findOneAndUpate({id:user.id},{$set:user},{new:true});
+    return UserModel.findOneAndUpdate({id:user.id},{$set:user},{new:true});
 };
 
 /**
