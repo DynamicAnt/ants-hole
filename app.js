@@ -10,13 +10,7 @@ var package = require('./package');
 let hbshelper = require('./extend/hbshelper');
 let rewriter = require('./extend/rewriter');
 
-let index = require('./routes/index');
-let blog = require('./routes/blog');
-let monitor = require('./routes/monitor');
-let catalog  = require('./routes/admin/catalog');
-let blogb  = require('./routes/admin/blog');
-let file  = require('./routes/admin/file');
-let test = require('./routes/test');
+
 
 let app = express();
 
@@ -43,6 +37,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.set('trust proxy', 'loopback') // specify a single subnet
 app.use(rewriter.inbound());
+
+let index = require('./routes/index');
+let blog = require('./routes/blog');
+let monitor = require('./routes/monitor');
+let catalog  = require('./routes/admin/catalog');
+let blogb  = require('./routes/admin/blog');
+let file  = require('./routes/admin/file');
+let test = require('./routes/test');
+let join = require('./routes/join');
+let logon = require('./routes/logon');
+
 app.use('/', index);
 app.use('/admin/catalog',catalog);
 app.use('/admin/blog',blogb);
@@ -50,6 +55,8 @@ app.use('/admin/file',file);
 app.use('/blog',blog);
 app.use('/monitor',monitor);
 app.use('/test',test);
+app.use('/join',join);
+app.use('/logon',logon);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

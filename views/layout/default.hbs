@@ -2,10 +2,20 @@
 <html>
 <head>
   <title>{{title}}</title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap-grid.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap-reboot.css' />
   <script src="/javascripts/lib/jquery-3.2.1.min.js"></script>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  {{{block "stylesheets"}}}
 </head>
 <body>
-{{{body}}}
+
+{{> nav}}
+<div class="container">
+  {{{body}}}
+</div>
+{{> footer}}
+{{{block "scripts"}}}
 </body>
 </html>
