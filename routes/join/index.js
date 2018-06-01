@@ -3,7 +3,8 @@ let router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.render('join', {
-      title: 'Express',
+      current:'join',
+      title: '注册',
       layout: 'layout/default'
   });
 });

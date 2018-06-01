@@ -1,8 +1,33 @@
 <div class="row">
   <div class="col-sm">
-    左边介绍
+      <h1 class="alt-h0 text-white lh-condensed-ultra mb-3">Built for developers</h1>
+      <p class="alt-lead mb-4">
+        GitHub is a development platform inspired by the way you work. From <a href="/open-source" class="text-white jumbotron-link">open source</a> to <a href="/business" class="text-white jumbotron-link">business</a>, you can host and review code, manage projects, and build software alongside millions of other&nbsp;developers.
+      </p>
   </div>
   <div class="col-sm">
-    右边注册框
+      <div class="rounded-1 text-gray bg-gray-light py-4 px-4 px-md-3 px-lg-4">
+        <form class="home-hero-signup js-signup-form" autocomplete="off" action="/join" accept-charset="UTF-8" method="post">
+          <div class="mb10">
+            <label for="username">Username</label>
+            <input class="form-control form-control-lg" type="text" name="username" id="username" placeholder="pick a username">
+            <div class="invalid-feedback">username is required</div>
+          </div>
+          <div class="mb10">
+            <label for="email">Email</label>
+            <input class="form-control form-control-lg" type="email" name="email" id="email" placeholder="you@example.com">
+            <div class="invalid-feedback">email is required</div>
+          </div>
+          <div class="mb10">
+            <label for="email">Password</label>
+            <input class="form-control form-control-lg" type="password" name="password" id="password" placeholder="Create a password">
+            <small class="text-muted">Use at least one letter, one numeral, and seven characters.</small>
+            <div class="invalid-feedback">Password is required</div>
+          </div>
+          <div class="mb10">
+            <button class="btn btn-primary btn-large f4 btn-block" type="submit" >Sign up for GitHub</button>
+          </div>
+        </form>
+    </div>
   </div>
 </div>

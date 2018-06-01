@@ -12,6 +12,14 @@ a {
   margin-top: 10px;
 }
 
+.mb5{
+  margin-bottom: 5px;
+}
+.mb10{
+  margin-bottom: 10px;
+}
+
+
 .hide{
   display: none;
 }
@@ -30,4 +38,10 @@ a {
 }
 .bgc-lightgray{
   background-color: lightgray;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #428bca;
 }
