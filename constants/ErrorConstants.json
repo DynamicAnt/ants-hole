@@ -1,0 +1,10 @@
+{
+    "EMAIL_EXIST":{
+        "code":1001,
+        "message":"该邮箱已被注册"
+    },
+    "USERNAME_EXIST":{
+        "code":1002,
+        "message":"用户名已被注册"
+    }
+}

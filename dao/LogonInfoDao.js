@@ -16,7 +16,7 @@ function findOneLogonInfo(params){
  * @param logUsername
  */
 function isUserExisted(logUserName){
-    return this.findOneLogonInfo({log_user_name:logUserName});
+    return findOneLogonInfo({log_user_name:logUserName});
 }
 
 /**

@@ -2,7 +2,9 @@
   <div class="col-sm">
       <h1 class="alt-h0 text-white lh-condensed-ultra mb-3">Built for developers</h1>
       <p class="alt-lead mb-4">
-        GitHub is a development platform inspired by the way you work. From <a href="/open-source" class="text-white jumbotron-link">open source</a> to <a href="/business" class="text-white jumbotron-link">business</a>, you can host and review code, manage projects, and build software alongside millions of other&nbsp;developers.
+        Ants' hole is a personal platform to record the learning process.<br />
+        I will use Vue, React, Typescript and other technologies to build this website.<br/>
+        Any Question, Suggestion and Concerns, you can contact with me.
       </p>
   </div>
   <div class="col-sm">
@@ -25,9 +27,13 @@
             <div class="invalid-feedback">Password is required</div>
           </div>
           <div class="mb10">
-            <button class="btn btn-primary btn-large f4 btn-block" type="submit" >Sign up for GitHub</button>
+            <button class="btn btn-primary btn-large f4 btn-block" type="button" id="join">Sign up for Ants' Hole</button>
           </div>
         </form>
     </div>
   </div>
 </div>
+
+{{#extend "scripts"}}
+    <script src="/javascripts/join/index.js"></script>
+{{/extend}}

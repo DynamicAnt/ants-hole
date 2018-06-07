@@ -1,7 +1,6 @@
 const UserDao = require('../dao/UserDao');
 const LogonInfoDao = require('../dao/LogonInfoDao');
-const crypto = require('crypto');
-
+const ERROR_CONSTANTS = require('../constants/ErrorConstants.json');
 
 function UserService(){
 
@@ -13,7 +12,23 @@ function UserService(){
  * @returns {Promise|RegExpExecArray}
  */
 UserService.isEmailExisted = function(email){
-    return UserDao.isEmailExisted(email);
+    return UserDao.isEmailExisted(email).then(data=>{
+        if(data){
+            return Promise.reject(ERROR_CONSTANTS.EMAIL_EXIST);
+        }else{
+            return Promise.resolve();
+        }
+    });
+};
+
+UserService.isUserExisted = function(log_user_name){
+    return LogonInfoDao.isUserExisted(log_user_name).then(data=>{
+        if(data){
+            return Promise.reject(ERROR_CONSTANTS.USERNAME_EXIST);
+        }else{
+            return Promise.resolve();
+        }
+    });
 };
 
 /**
@@ -22,19 +37,15 @@ UserService.isEmailExisted = function(email){
  * @returns {*|PromiseLike<T>|Promise<T>}
  */
 UserService.add = function(user){
-    return this.isEmailExisted(user.email)
-        .then(data=>{
-            if(data){
-                return LogonInfoDao.isUserExisted(user.log_user_name)
-            .then(UserDao.insert(user))
-                    .then(data=>{
-                        let password = crypto.createHash('md5').update(user.password).digest('hex');
-                        return LogonInfoDao.register(user.log_user_name,password,data.id);
-                    });
-            }else{
-
-            }
+    return this.isEmailExisted(user.email).then(()=>{
+        return this.isUserExisted(user.log_user_name).then(()=>{
+            return UserDao.insert(user).then(data=>{
+                return LogonInfoDao.register(user.log_user_name,user.password,data.id);
+            });
         });
+    }).catch(err=>{
+        return Promise.reject(err);
+    });
 
 };
 

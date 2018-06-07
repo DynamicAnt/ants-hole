@@ -4,6 +4,7 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let session = require('express-session');
 
 // 这里如果用let声明package程序会报错，原因不明
 var package = require('./package');
@@ -33,6 +34,11 @@ app.use(logger('dev',{
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'ah',
+    resave: false,
+    saveUninitialized: true
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.set('trust proxy', 'loopback') // specify a single subnet
