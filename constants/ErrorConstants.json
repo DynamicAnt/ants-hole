@@ -6,5 +6,9 @@
     "USERNAME_EXIST":{
         "code":1002,
         "message":"用户名已被注册"
+    },
+    "USER_IS_NOT_EXIST":{
+        "code":1003,
+        "message":"用户名或密码错误"
     }
 }

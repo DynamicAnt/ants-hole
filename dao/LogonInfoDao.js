@@ -41,8 +41,16 @@ function register(logUsername, password ,userId) {
  * @param logUsername
  * @param password
  */
-function logon(logUsername, password) {
+function logonByUserName(logUsername, password) {
     return findOneLogonInfo({log_user_name:logUsername,password:password});
+}
+/**
+ * 登陆
+ * @param logUsername
+ * @param password
+ */
+function logonByEmail(email, password) {
+    return findOneLogonInfo({email:email,password:password});
 }
 
 /**
@@ -62,7 +70,8 @@ function del(logUsername){
 }
 
 exports.isUserExisted = isUserExisted;
-exports.logon = logon;
+exports.logonByUserName = logonByUserName;
+exports.logonByEmail = logonByEmail;
 exports.register = register;
 exports.modifyPassword = modifyPassword;
 exports.del = del;

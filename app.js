@@ -11,6 +11,8 @@ var package = require('./package');
 let hbshelper = require('./extend/hbshelper');
 let rewriter = require('./extend/rewriter');
 
+let AuthFilter = require('./filter/AuthFilter');
+
 
 
 let app = express();
@@ -44,6 +46,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.set('trust proxy', 'loopback') // specify a single subnet
 app.use(rewriter.inbound());
 
+app.use('/',AuthFilter.filter);
+app.use('/logon',AuthFilter.personal);
+app.use('/join',AuthFilter.personal);
+
 let index = require('./routes/index');
 let blog = require('./routes/blog');
 let monitor = require('./routes/monitor');
@@ -53,6 +59,7 @@ let file  = require('./routes/admin/file');
 let test = require('./routes/test');
 let join = require('./routes/join');
 let logon = require('./routes/logon');
+let logout = require('./routes/logout');
 
 app.use('/', index);
 app.use('/admin/catalog',catalog);
@@ -63,6 +70,7 @@ app.use('/monitor',monitor);
 app.use('/test',test);
 app.use('/join',join);
 app.use('/logon',logon);
+app.use('/logout',logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -75,6 +83,8 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
+  console.error(req.originalUrl);
+  console.error(err.message);
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page

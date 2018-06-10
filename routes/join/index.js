@@ -1,5 +1,6 @@
 const express = require('express');
 const UserService = require('../../service/UserService');
+let LogonService = require('../../service/LogonService');
 let router = express.Router({});
 
 
@@ -19,8 +20,10 @@ router.post('/', function(req, res, next) {
         password:req.body.password
     };
     UserService.add(user).then(()=>{
-        req.session.user = user;
-        res.json({code:0});
+        LogonService.logon(user.log_user_name,user.password).then(user=>{
+            req.session.user = user;
+            res.json({code:0});
+        });
     }).catch(err=>{
         res.json(err);
     });

@@ -12,8 +12,13 @@
       <a class="nav-link {{#compare current "blog" }}active{{/compare}}" href="/blog">博客</a>
       <a class="nav-link {{#compare current "download"}}active{{/compare}}" href="/download">资源下载</a>
       <a class="nav-link {{#compare current "about"}}active{{/compare}}" href="/about">关于我们</a>
-      <a class="nav-link" href="/register">登陆</a>
-      <a class="nav-link {{#compare current "join"}}active{{/compare}}" href="/join">注册</a>
+      {{#if user}}
+        <a class="nav-link" href="/personal">{{user.log_user_name}}</a>
+        <a class="nav-link" href="/logout">注销</a>
+      {{else}}
+        <a class="nav-link" href="/logon">登陆</a>
+        <a class="nav-link {{#compare current "join"}}active{{/compare}}" href="/join">注册</a>
+      {{/if}}
     </nav>
   </div>
 </div>
