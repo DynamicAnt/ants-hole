@@ -8,11 +8,7 @@ let isNeedAuthed = function(path){
 };
 
 let isLogon = function(req){
-    if(req.session&&req.session.user){
-        return true;
-    }else{
-        return false;
-    }
+    return !!(req.session&&req.session.user)
 };
 
 AuthFilter.filter =  function(req,res,next){

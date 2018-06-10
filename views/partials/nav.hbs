@@ -16,7 +16,7 @@
         <a class="nav-link" href="/personal">{{user.log_user_name}}</a>
         <a class="nav-link" href="/logout">注销</a>
       {{else}}
-        <a class="nav-link" href="/logon">登陆</a>
+        <a class="nav-link {{#compare current "logon"}}active{{/compare}}" href="/logon">登陆</a>
         <a class="nav-link {{#compare current "join"}}active{{/compare}}" href="/join">注册</a>
       {{/if}}
     </nav>
